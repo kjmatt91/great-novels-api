@@ -1,7 +1,7 @@
-const models = require('../models/authorsModel')
+const models = require('../models')
 
 const getAllAuthors = async (request, response) => {
-  const authors = await models.authors.findAll()
+  const authors = await models.author.findAll()
 
   return response.send(authors)
 }
