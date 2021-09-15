@@ -1,4 +1,4 @@
-const models = require('../models')
+const models = require('../models/genresModel')
 
 const getAllGenres = async (request, response) => {
   const genres = await models.genres.findAll()

@@ -1,4 +1,4 @@
-const models = require('../models')
+const models = require('../models/authorsModel')
 
 const getAllAuthors = async (request, response) => {
   const authors = await models.author.findAll()
@@ -11,10 +11,10 @@ const getAllInfoByAuthorId = async (request, response) => {
 
   const author = await models.authors.findOne({
     where: { id },
-    include: [{
-      model: models.titles,
-      include: [{ model: models.genres }]
-    }]
+    include: [
+      { model: models.titles },
+      { model: models.genres },
+    ],
   })
 
   return author ? response.send(author) : response.sendStatus(404)

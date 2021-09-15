@@ -6,4 +6,4 @@ const titlesGenres = (connection, Sequelize) => {
   }, { paranoid: true })
 }
 
-module.exports = titlesGenres
+module.exports = { titlesGenres }

@@ -5,4 +5,4 @@ const titles = (connection, Sequelize) => {
   }, { paranoid: true })
 }
 
-module.exports = titles
+module.exports = { titles }
