@@ -39,7 +39,7 @@ module.exports = {
       { nameFirst: 'Chinua', nameLast: 'Achebe' },
     ])
 
-    await queryInterface.bulkInsert('novels', [
+    await queryInterface.bulkInsert('titles', [
       { title: 'Dracula', authorId: 1 },
       { title: 'The Picture of Dorian Gray', authorId: 2 },
       { title: 'The Color Purple', authorId: 3 },
@@ -57,7 +57,7 @@ module.exports = {
       { title: 'Things Fall Apart', authorId: 15 },
     ])
 
-    return queryInterface.bulkInsert('novelsGenres', [
+    return queryInterface.bulkInsert('titlesGenres', [
       { novelId: 1, genreId: 7 },
       { novelId: 1, genreId: 11 },
       { novelId: 1, genreId: 6 },
@@ -110,9 +110,9 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.bulkDelete('novelsGenres')
+    await queryInterface.bulkDelete('titlesGenres')
 
-    await queryInterface.bulkDelete('novels')
+    await queryInterface.bulkDelete('titles')
 
     await queryInterface.bulkDelete('authors')
 
