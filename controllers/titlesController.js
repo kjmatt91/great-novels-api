@@ -1,4 +1,5 @@
 const models = require('../models/titlesGenresModel')
+const { Op } = require('sequelize')
 
 const getAllNovels = async (request, response) => {
   const titles = await models.titles.findAll({
@@ -8,15 +9,24 @@ const getAllNovels = async (request, response) => {
   return response.send(titles)
 }
 
-const getAllNovelsWithAuthorGenre = async (request, response) => {
-  const { id } = request.params
+const getAllNovelsWithAuthorGenreOrTitle = async (request, response) => {
+  try {
+    const { identifier } = request.params
 
-  const title = await models.titles.findOne({
-    where: { id },
-    include: [{ model: models.authors }, { model: models.Genres }]
-  })
+    const title = await models.titles.findOne({
+      where: {
+        [Op.or]: [
+          { id: identifier },
+          { title: { [Op.like]: `%${identifier}%` } },
+        ]
+      },
+      include: [{ model: models.authors }, { model: models.Genres }]
+    })
 
-  return title ? response.send(title) : response.sendStatus(404)
+    return title ? response.send(title) : response.sendStatus(404)
+  } catch (error) {
+    return response.status(500).send('Unable to retrieve novel')
+  }
 }
 
-module.exports = { getAllNovels, getAllNovelsWithAuthorGenre }
+module.exports = { getAllNovels, getAllNovelsWithAuthorGenreOrTitle }
